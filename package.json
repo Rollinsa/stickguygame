@@ -1,0 +1,18 @@
+{
+  "name": "webbasedatm",
+  "version": "1.0.0",
+  "description": "A web-based ATM using javascript, node.js, and react.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rollinsa/WebBasedATM.git"
+  },
+  "author": "Alex Rollins",
+  "bugs": {
+    "url": "https://github.com/Rollinsa/WebBasedATM/issues"
+  },
+  "homepage": "https://github.com/Rollinsa/WebBasedATM#readme"
+}
