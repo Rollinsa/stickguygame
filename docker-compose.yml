@@ -1,0 +1,15 @@
+version: 2
+services: 
+  mongo:
+    build:
+      ./mongo
+    ports:
+    - "27017":"27017"
+    environment:
+    - MONGO_INITDB_ROOT_USERNAME=root
+    - MONGO_INITDB_ROOT_PASSWORD=pass
+  rest:
+    build:
+      ./rest
+    ports:
+    - "3000":"3000"
