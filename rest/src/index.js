@@ -1,6 +1,7 @@
 const express = require("express");
 const MongoClient = require('mongodb').MongoClient;
 const routerHome = require("./routes/router-home.js");
+const bodyParser = require('body-parser');
 
 const app = express();
 const mongoURL = 'mongodb://mongo:27017';
@@ -10,12 +11,15 @@ const collectionName = 'atm';
 MongoClient.connect(mongoURL, function(err, client) {
 	console.log("Connected successfully to server");
 
+	app.use(bodyParser.urlencoded({ extended: false }));
+	app.use(bodyParser.json());
+
 	const db = client.db(dbName);
 	const collection = db.collection(collectionName);
 
-	app.use("/", routerHome);
-
 	app.set("collection", collection);
+
+	app.use("/", routerHome);
 
 	app.use((err, req, res, next) => {
 		console.error("Error....", err.message);
@@ -23,7 +27,7 @@ MongoClient.connect(mongoURL, function(err, client) {
 	});
 
 	app.listen(3000, () => {
-		console.log("Express server up and running!")
+		console.log("Express server up and running!");
 	})
 
 	client.close();
