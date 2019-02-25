@@ -5,8 +5,8 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const mongoURL = 'mongodb://mongo:27017';
-const dbName = 'atmDB';
-const collectionName = 'atm';
+const dbName = 'stickguygameDB';
+const collectionName = 'stickguygame';
 
 MongoClient.connect(mongoURL, function(err, client) {
 	console.log("Connected successfully to server");

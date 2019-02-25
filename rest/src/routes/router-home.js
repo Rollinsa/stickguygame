@@ -1,7 +1,7 @@
 const express = require("express");
 const routerHome = express.Router();
-const routerATM = require("./router-atm.js");
+const routerStats = require("./router-stats.js");
 
-routerHome.use("/atm", routerATM);
+routerHome.use("/stats", routerStats);
 
 module.exports = routerHome;
