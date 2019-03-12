@@ -1,18 +1,18 @@
 {
-	"name": "stickguygame",
+	"name": "webbasedatm",
 	"version": "1.0.0",
-	"description": "A web-based 'stickguygame' implemented with a MERN stack (mongo, express, react, node.js).",
+	"description": "A web-based ATM implemented with a MERN stack (mongo, express, react, node.js).",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Rollinsa/stickguygame.git"
+		"url": "git+https://github.com/Rollinsa/WebBasedATM.git"
 	},
 	"author": "Alex Rollins",
 	"bugs": {
-		"url": "https://github.com/Rollinsa/stickguygame/issues"
+		"url": "https://github.com/Rollinsa/WebBasedATM/issues"
 	},
-	"homepage": "https://github.com/Rollinsa/stickguygame#readme",
+	"homepage": "https://github.com/Rollinsa/WebBasedATM#readme",
 	"dependencies": {}
 }
