@@ -8,13 +8,8 @@ const mongoURL = 'mongodb://mongo:27017';
 const dbName = 'stickguygameDB';
 const collectionName = 'stickguygame';
 
-MongoClient.connect(mongoURL, { auth: { user: "root", password: "pass" } }, function(err, client) {
-	if (err) {
-		console.error("Error....", err);
-		return;
-	}
-
-	console.log("Connected successfully to Mongo Client");
+MongoClient.connect(mongoURL, function(err, client) {
+	console.log("Connected successfully to server");
 
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(bodyParser.json());
@@ -34,4 +29,6 @@ MongoClient.connect(mongoURL, { auth: { user: "root", password: "pass" } }, func
 	app.listen(3000, () => {
 		console.log("Express server up and running!");
 	})
+
+	client.close();
 });
