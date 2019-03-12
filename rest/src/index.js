@@ -1,35 +1,57 @@
 const express = require("express");
-const MongoClient = require('mongodb').MongoClient;
 const routerHome = require("./routes/router-home.js");
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const app = express();
 const mongoURL = 'mongodb://mongo:27017';
 const dbName = 'atmDB';
 const collectionName = 'atm';
 
-MongoClient.connect(mongoURL, { auth: { user: "root", password: "pass" } }, function(err, client) {
-	if (err) {
-		console.error("Error....", err);
-		return;
-	}
-	console.log("Connected successfully to Mongo Client");
+const options = {
+	// Don't build indexes
+	autoIndex: false,
+	// Retry up to 30 times
+	reconnectTries: 30,
+	// Reconnect every 500ms
+	reconnectInterval: 500,
+	// Maintain up to 10 socket connections
+	poolSize: 10,
+	// If not connected, return errors immediately rather than waiting for reconnect
+	bufferMaxEntries: 0,
+	// user/pass
+	auth: {
+        authdb: "admin",
+    },
+	user: "root",
+	pass: "pass",
+};
 
-	app.use(bodyParser.urlencoded({ extended: false }));
-	app.use(bodyParser.json());
+const connectWithRetry = () => {
+	mongoose.connect(`${mongoURL}/${dbName}`, options).then(() => {
+		console.log('MongoDB is connected');
+		const db = mongoose.connection.db;
 
-	const db = client.db(dbName);
-	const collection = db.collection(collectionName);
+		app.use(bodyParser.urlencoded({ extended: false }));
+		app.use(bodyParser.json());
 
-	app.set("collection", collection);
+		const collection = db.collection(collectionName);
 
-	app.use("/", routerHome);
+		app.set("collection", collection);
 
-	app.use((err, req, res, next) => {
-		console.error("Error....", err.message);
-		res.status(500).send("INTERNAL SERVER ERROR");
+		app.use("/", routerHome);
+
+		app.use((err, req, res, next) => {
+			console.error("Error....", err.message);
+			res.status(500).send("INTERNAL SERVER ERROR");
+		});
+
+		app.listen(3000, () => {
+			console.log("Express server up and running!");
+		});
+	}).catch(err => {
+		console.log(`MongoDB connection error: ${err}. Retrying after 5 seconds.`);
+		setTimeout(connectWithRetry, 5000);
 	});
+};
 
-	app.listen(3000, () => {
-		console.log("Express server up and running!");
-	})
-});
+connectWithRetry();
