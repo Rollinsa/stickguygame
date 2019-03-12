@@ -10,8 +10,16 @@ services:
   rest:
     build: ./rest
     ports:
-      - "3000:3000"
+      - "4000:4000"
     links:
       - mongo
     depends_on:
       - mongo
+  ui:
+    build: ./ui
+    ports:
+      - "3000:3000"
+    links:
+      - rest
+    depends_on:
+      - rest

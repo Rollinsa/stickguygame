@@ -45,7 +45,7 @@ const connectWithRetry = () => {
 			res.status(500).send("INTERNAL SERVER ERROR");
 		});
 
-		app.listen(3000, () => {
+		app.listen(4000, () => {
 			console.log("Express server up and running!");
 		});
 	}).catch(err => {

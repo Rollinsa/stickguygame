@@ -2,7 +2,8 @@
 
 To start it up, run `docker-compose up -d`
 
-You can connect to localhost:3000 to access the REST api.
+You can connect to localhost:3000 to access the React App.
+You can connect to localhost:4000 to access the REST api.
 
 Steps for getting into just mongo:
 
