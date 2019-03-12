@@ -1,4 +1,4 @@
-# stickguygame
+# WebBasedATM
 
 To start it up, run `docker-compose up -d`
 
