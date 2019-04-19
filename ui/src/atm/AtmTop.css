@@ -1,0 +1,17 @@
+.AtmTop {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	color: white;
+	background-color: navy;
+	border-radius: 15px;
+	min-width: 500px;
+}
+
+.AtmTitle {
+	font-size: 84px;
+}
+
+.AtmDescriptor {
+	font-size: 32px;
+}

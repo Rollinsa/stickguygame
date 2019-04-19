@@ -1,0 +1,23 @@
+.AtmScreen {
+	margin: 15px;
+	background-color: royalblue;
+	min-width: 275px;
+	height: 200px;
+	border: solid;
+	padding: 30px;
+	border-color: darkgrey;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.buttonDescriptors {
+	font-size: 16px;
+	margin-top: 118px;
+}
+
+.descriptor-row {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30px;
+}

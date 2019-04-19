@@ -1,0 +1,30 @@
+.AtmBottom {
+	min-width: 480px;
+	min-height: 500px;
+	background-color: lightgrey;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.credit-cards {
+	margin: 20px 0 50px 0;
+}
+
+.screen-and-buttons-container {
+	display: flex;
+	align-items: center;
+}
+
+.button-column {
+	display: flex;
+	flex-direction: column;
+	min-width: 40px;
+	margin-top: 60px;
+}
+
+.atm-button {
+	margin: 10px 0;
+	height: 25px;
+	border-radius: 8px;
+}

@@ -1,0 +1,11 @@
+.Atm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.Separator {
+	height: 10px;
+	background-color: gray;
+	min-width: 480px;
+}
