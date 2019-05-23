@@ -10,8 +10,11 @@
 
 .AtmTitle {
 	font-size: 84px;
+	cursor: default;
 }
 
 .AtmDescriptor {
 	font-size: 32px;
+	cursor: default;
 }
+

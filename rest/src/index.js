@@ -8,20 +8,14 @@ const dbName = 'atmDB';
 const collectionName = 'atm';
 
 const options = {
-	// Don't build indexes
 	autoIndex: false,
-	// Retry up to 30 times
 	reconnectTries: 30,
-	// Reconnect every 500ms
 	reconnectInterval: 500,
-	// Maintain up to 10 socket connections
 	poolSize: 10,
-	// If not connected, return errors immediately rather than waiting for reconnect
 	bufferMaxEntries: 0,
-	// user/pass
 	auth: {
-        authdb: "admin",
-    },
+		authdb: "admin",
+	},
 	user: "root",
 	pass: "pass",
 };
