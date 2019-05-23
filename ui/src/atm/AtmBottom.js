@@ -4,19 +4,35 @@ import AtmScreen from "./AtmScreen";
 
 export default class AtmBottom extends Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			instructions: "Please make a choice...",
-			topLeftButton: "Withdraw",
-			bottomLeftButton: "Balance",
-			topRightButton: "Deposit",
-			bottomRightButton: "Re-Enter PIN",
-		}
+	initialState = {
+		instructions: "Please make a choice...",
+		topLeftButton: "Withdraw",
+		bottomLeftButton: "Balance",
+		topRightButton: "Deposit",
+		bottomRightButton: "Re-Enter PIN",
 	}
 
-	buttonClick(e, buttonName) {
-		console.log(buttonName, " was clicked.");
+	buttonCallbacks = {
+		"Withdraw": () => null,
+		"Balance": () => {
+			this.setState({ 
+				instructions: "Your balance is below!",
+				topLeftButton: "",
+				bottomLeftButton: "Go Back",
+				topRightButton: "",
+				bottomRightButton: "",
+			});
+		},
+		"Deposit": () => null,
+		"Re-Enter PIN": () => null,
+		"Go Back": () => {
+			this.setState(this.initialState);
+		},
+	}
+
+	constructor(props) {
+		super(props);
+		this.state = this.initialState;
 	}
 
 	render() {
@@ -33,10 +49,10 @@ export default class AtmBottom extends Component {
 				<img className="credit-cards" src={require("./credit-cards.png")}/>
 				<div className="screen-and-buttons-container">
 					<div className="button-column">
-						<button onClick={(e) => this.buttonClick(e, null)} className="atm-button"/>
-						<button onClick={(e) => this.buttonClick(e, null)} className="atm-button"/>
-						<button onClick={(e) => this.buttonClick(e, topLeftButton)} className="atm-button"/>
-						<button onClick={(e) => this.buttonClick(e, bottomLeftButton)} className="atm-button"/>
+						<button className="atm-button"/>
+						<button className="atm-button"/>
+						<button onClick={() => topLeftButton && this.buttonCallbacks[topLeftButton]()} className="atm-button"/>
+						<button onClick={() => bottomLeftButton && this.buttonCallbacks[bottomLeftButton]()} className="atm-button"/>
 					</div>
 					<AtmScreen 
 						instructions={instructions}
@@ -46,10 +62,10 @@ export default class AtmBottom extends Component {
 						bottomRightButton={bottomRightButton}
 					/>
 					<div className="button-column">
-						<button onClick={(e) => this.buttonClick(e, null)} className="atm-button"/>
-						<button onClick={(e) => this.buttonClick(e, null)} className="atm-button"/>
-						<button onClick={(e) => this.buttonClick(e, topRightButton)} className="atm-button"/>
-						<button onClick={(e) => this.buttonClick(e, bottomRightButton)} className="atm-button"/>
+						<button className="atm-button"/>
+						<button className="atm-button"/>
+						<button onClick={() => topRightButton && this.buttonCallbacks[topRightButton]()} className="atm-button"/>
+						<button onClick={() => bottomRightButton && this.buttonCallbacks[bottomRightButton]()} className="atm-button"/>
 					</div>
 				</div>
 			</div>
