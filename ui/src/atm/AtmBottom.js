@@ -9,7 +9,7 @@ export default class AtmBottom extends Component {
 		topLeftButton: "Withdraw",
 		bottomLeftButton: "Balance",
 		topRightButton: "Deposit",
-		bottomRightButton: "Re-Enter PIN",
+		bottomRightButton: "",
 		buttonClicked: "",
 		balance: 0,
 	}
@@ -100,7 +100,6 @@ export default class AtmBottom extends Component {
 				buttonClicked: "Deposit",
 			});
 		},
-		"Re-Enter PIN": () => null,
 		"Go Back": () => {
 			this.setState(this.initialState);
 		},
