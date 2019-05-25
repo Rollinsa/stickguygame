@@ -36,9 +36,9 @@ export default class AtmBottom extends Component {
 
 	buttonCallbacks = {
 		"Withdraw": () => null,
-		"Balance": () => {
+		"Balance": (fromDeposit) => {
 			this.setState({ 
-				instructions: "Your balance is below!",
+				instructions: `Your ${fromDeposit ? 'new ' : ''}balance is below!`,
 				topLeftButton: "",
 				bottomLeftButton: "Go Back",
 				topRightButton: "",
@@ -46,10 +46,47 @@ export default class AtmBottom extends Component {
 				buttonClicked: "Balance",
 			});
 		},
-		"Deposit": () => null,
+		"Deposit": () => {
+			this.setState({ 
+				instructions: "Type deposit amount below!",
+				topLeftButton: "",
+				bottomLeftButton: "Go Back",
+				topRightButton: "",
+				bottomRightButton: "Complete Deposit",
+				buttonClicked: "Deposit",
+			});
+		},
 		"Re-Enter PIN": () => null,
 		"Go Back": () => {
 			this.setState(this.initialState);
+		},
+		"Complete Deposit": async () => {
+			const depositAmount = parseFloat(document.getElementById('deposit').value);
+
+			if (isNaN(depositAmount) || depositAmount <= 0) {
+				console.log("User input an invalid number for a deposit.");
+				alert("You must input a valid, non-negative number!");
+				document.getElementById('deposit').value = "";
+			} else {
+				console.log(`User input valid number of ${depositAmount}. Depositing now...`);
+				const res = await fetch('/atm/deposit', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						deposit: depositAmount
+					})
+				});
+				const body = await res.json();
+	
+				if (res.status !== 200) {
+					console.error(`Error depositing $${depositAmount}: ${body.message}`);
+					throw Error(body.message);
+				}
+				console.log(`User has a new balance of ${body.balance}`);
+				this.buttonCallbacks["Balance"](true);
+			}
 		},
 	}
 

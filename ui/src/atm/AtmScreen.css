@@ -36,3 +36,14 @@
 	left: 0;
 	right: 0;
 }
+
+#deposit {
+	position: absolute;
+	margin-top: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	resize: none;
+	width: 150px;
+}
