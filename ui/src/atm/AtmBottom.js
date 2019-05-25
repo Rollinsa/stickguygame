@@ -10,6 +10,28 @@ export default class AtmBottom extends Component {
 		bottomLeftButton: "Balance",
 		topRightButton: "Deposit",
 		bottomRightButton: "Re-Enter PIN",
+		buttonClicked: "",
+		balance: 0,
+	}
+
+	constructor(props) {
+		super(props);
+		this.state = this.initialState;
+	}
+
+	async componentDidUpdate(prevProps, prevState) {
+		if (prevState.buttonClicked !== "Balance" && this.state.buttonClicked === "Balance") {
+			const res = await fetch('/atm/balance');
+			const body = await res.json();
+
+			if (res.status !== 200) {
+				console.error(`Error fetching balance: ${body.message}`);
+				throw Error(body.message);
+			}
+
+			const { balance } = body;
+			this.setState({ balance })
+		}
 	}
 
 	buttonCallbacks = {
@@ -21,6 +43,7 @@ export default class AtmBottom extends Component {
 				bottomLeftButton: "Go Back",
 				topRightButton: "",
 				bottomRightButton: "",
+				buttonClicked: "Balance",
 			});
 		},
 		"Deposit": () => null,
@@ -30,18 +53,15 @@ export default class AtmBottom extends Component {
 		},
 	}
 
-	constructor(props) {
-		super(props);
-		this.state = this.initialState;
-	}
-
 	render() {
 		const {
 			instructions,
 			topLeftButton,
 			bottomLeftButton,
 			topRightButton,
-			bottomRightButton
+			bottomRightButton,
+			balance,
+			buttonClicked
 		} = this.state;
 
 		return (
@@ -60,6 +80,8 @@ export default class AtmBottom extends Component {
 						bottomLeftButton={bottomLeftButton}
 						topRightButton={topRightButton}
 						bottomRightButton={bottomRightButton}
+						balance={balance}
+						buttonClicked={buttonClicked}
 					/>
 					<div className="button-column">
 						<button className="atm-button"/>

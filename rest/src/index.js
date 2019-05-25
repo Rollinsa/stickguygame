@@ -27,6 +27,11 @@ const connectWithRetry = () => {
 
 		app.use(bodyParser.urlencoded({ extended: false }));
 		app.use(bodyParser.json());
+		app.use("/", (req, res, next) => {
+			console.log(`Request Method: ${req.method}`);
+			console.log(`Time: ${Date.now()}`);
+			next();
+		});
 
 		const collection = db.collection(collectionName);
 

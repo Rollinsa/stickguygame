@@ -24,8 +24,15 @@
 }
 
 .descriptor {
-	cursor: default
+	cursor: default;
 }
 .instructions {
-	cursor: default
+	cursor: default;
+}
+
+.balance {
+	position: absolute;
+	margin-top: 40px;
+	left: 0;
+	right: 0;
 }
