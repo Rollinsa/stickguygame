@@ -18,6 +18,7 @@ export default class AtmScreen extends Component {
 				<div className="instructions">{instructions}</div>
 				{buttonClicked === "Balance" ? <div className="balance">{balance}</div> : null}
 				{buttonClicked === "Deposit" ? <textarea id="deposit" rows="1" cols="20"></textarea> : null}
+				{buttonClicked === "Withdraw" ? <textarea id="withdraw" rows="1" cols="20"></textarea> : null}
 				<div className="buttonDescriptors">
 					<div className="descriptor-row">
 						<span className="descriptor">{topLeftButton}</span>

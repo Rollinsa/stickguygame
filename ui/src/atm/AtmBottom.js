@@ -34,11 +34,55 @@ export default class AtmBottom extends Component {
 		}
 	}
 
+	async alterBalance(type) {
+		const amount = parseFloat(document.getElementById(type).value);
+
+		if (isNaN(amount) || amount <= 0) {
+			console.log(`User input an invalid number for a ${type}.`);
+			alert("You must input a valid, non-negative number!");
+			document.getElementById(type).value = "";
+		} else {
+			console.log(`User input valid number of ${amount}. Doing a ${type} now...`);
+			const res = await fetch(`/atm/${type}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					[type]: amount
+				})
+			});
+			const body = await res.json();
+
+			if (res.status === 403) {
+				console.log(body.message);
+				alert(body.message);
+				document.getElementById(type).value = "";
+			} else {
+				if (res.status !== 200) {
+					console.error(`Error doing ${type} of $${amount}: ${body.message}`);
+					throw Error(body.message);
+				}
+				console.log(`User has a new balance of ${body.balance}`);
+				this.buttonCallbacks["Balance"](true);
+			}
+		}
+	}
+
 	buttonCallbacks = {
-		"Withdraw": () => null,
-		"Balance": (fromDeposit) => {
+		"Withdraw": () => {
 			this.setState({ 
-				instructions: `Your ${fromDeposit ? 'new ' : ''}balance is below!`,
+				instructions: "Type withdraw amount below!",
+				topLeftButton: "",
+				bottomLeftButton: "Go Back",
+				topRightButton: "",
+				bottomRightButton: "Complete Withdrawal",
+				buttonClicked: "Withdraw",
+			});
+		},
+		"Balance": (newBalance) => {
+			this.setState({ 
+				instructions: `Your ${newBalance ? 'new ' : ''}balance is below!`,
 				topLeftButton: "",
 				bottomLeftButton: "Go Back",
 				topRightButton: "",
@@ -60,34 +104,12 @@ export default class AtmBottom extends Component {
 		"Go Back": () => {
 			this.setState(this.initialState);
 		},
-		"Complete Deposit": async () => {
-			const depositAmount = parseFloat(document.getElementById('deposit').value);
-
-			if (isNaN(depositAmount) || depositAmount <= 0) {
-				console.log("User input an invalid number for a deposit.");
-				alert("You must input a valid, non-negative number!");
-				document.getElementById('deposit').value = "";
-			} else {
-				console.log(`User input valid number of ${depositAmount}. Depositing now...`);
-				const res = await fetch('/atm/deposit', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify({
-						deposit: depositAmount
-					})
-				});
-				const body = await res.json();
-	
-				if (res.status !== 200) {
-					console.error(`Error depositing $${depositAmount}: ${body.message}`);
-					throw Error(body.message);
-				}
-				console.log(`User has a new balance of ${body.balance}`);
-				this.buttonCallbacks["Balance"](true);
-			}
+		"Complete Deposit": () => {
+			this.alterBalance('deposit');
 		},
+		"Complete Withdrawal": () => {
+			this.alterBalance('withdraw');
+		}
 	}
 
 	render() {

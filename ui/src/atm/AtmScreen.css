@@ -1,7 +1,7 @@
 .AtmScreen {
 	margin: 15px;
 	background-color: royalblue;
-	min-width: 275px;
+	width: 275px;
 	height: 200px;
 	border: solid;
 	padding: 30px;
@@ -27,6 +27,7 @@
 	cursor: default;
 }
 .instructions {
+	white-space: nowrap;
 	cursor: default;
 }
 
@@ -38,6 +39,17 @@
 }
 
 #deposit {
+	position: absolute;
+	margin-top: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+	resize: none;
+	width: 150px;
+}
+
+#withdraw {
 	position: absolute;
 	margin-top: 40px;
 	margin-left: auto;
